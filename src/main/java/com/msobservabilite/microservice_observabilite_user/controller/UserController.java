@@ -1,7 +1,8 @@
 package com.msobservabilite.microservice_observabilite_user.controller;
 
-import com.msobservabilite.microservice_observabilite_user.UserRecordDto;
+import com.msobservabilite.microservice_observabilite_user.dto.UserRecordDto;
 import com.msobservabilite.microservice_observabilite_user.model.UserModel;
+import com.msobservabilite.microservice_observabilite_user.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +14,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping
 public class UserController {
 
-    @Autowired
-    private CityService cityService;
+   final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/users")
     @ResponseBody
     public ResponseEntity<UserModel> saveUser(@RequestBody @Valid UserRecordDto userRecordDto) {
         var userSave = new UserModel();
         BeanUtils.copyProperties(userRecordDto, userSave);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveCity(userSave));
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userSave));
     }
 }

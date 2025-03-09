@@ -1,4 +1,7 @@
 # Microservice- Asynchronous-And-Observability
 
 # 1° Passo:
-Salva os dados no banco de dados
+SaveUser salva os dados no banco de dados.
+
+# 2° Passo
+Publish Message publica a mensagem na fila para ser consumida pelo email.
